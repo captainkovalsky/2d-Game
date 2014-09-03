@@ -1,5 +1,5 @@
 var Game = (function(window, undefined){
-	var stage, renderer, sprites = [];
+	var stage, renderer;
 
 		function animate(){
 			requestAnimFrame(animate);
@@ -19,7 +19,6 @@ var Game = (function(window, undefined){
 
 	var start = function(){
 		var poutinSprite = createSprite("resources/poutin.jpg");
-		sprites.push(poutinSprite);
 		poutinSprite.anchor.x = 0.5;
 		poutinSprite.anchor.y = 0.5;
 		poutinSprite.position.x = GameConfig.WIDTH / 2;
@@ -31,6 +30,5 @@ var Game = (function(window, undefined){
 	return{
 		init: init,
 		start: start
-		
 	}
 })(window);
