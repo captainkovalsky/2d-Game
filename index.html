@@ -4,6 +4,7 @@
 		<title>2D Game</title>
 		<meta charset="UTF-8">
 		<script type="text/javascript" src="pixi.dev.js"></script>
+		<script type="text/javascript" src="gameConfig.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 	<style>
 	body {
@@ -22,7 +23,12 @@
 <body>
 	<h1>Game</h1>
 	<div>
-		<canvas id="game"></canvas>
+		<div id="game"></div>
 	</div>
 </body>
+<script>
+	Game.init();
+	Game.start();
+
+</script>
 </html>
