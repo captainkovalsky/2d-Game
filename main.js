@@ -1,5 +1,5 @@
 var Game = (function(window, undefined){
-	var stage, renderer;
+	var stage, renderer, interactivity = true;
 
 		function animate(){
 			requestAnimFrame(animate);
@@ -7,11 +7,11 @@ var Game = (function(window, undefined){
 		}
 
 		function createSprite(imagePath){
-			var texture = PIXI.Texture.fromImage(imagePath);
+			var texture = PIXI.Texture.fromImage(imagePath, true);
 			return new PIXI.Sprite(texture);
 		}
 	var init = function(){
-		stage = new PIXI.Stage(GameConfig.BACKGROUND_COLOR);
+		stage = new PIXI.Stage(GameConfig.BACKGROUND_COLOR, interactivity);
 		renderer = PIXI.autoDetectRenderer(GameConfig.WIDTH, GameConfig.HEIGHT);
 		var replaceRendererElement = document.getElementById("game");
 		replaceRendererElement.appendChild(renderer.view);
@@ -23,6 +23,11 @@ var Game = (function(window, undefined){
 		poutinSprite.anchor.y = 0.5;
 		poutinSprite.position.x = GameConfig.WIDTH / 2;
 		poutinSprite.position.y = GameConfig.HEIGHT / 2;
+		poutinSprite.setInteractive(interactivity);
+		poutinSprite.click = function(mouseData){
+			console.log('add wound sprite');
+		}
+
 		stage.addChild(poutinSprite);
 		requestAnimFrame(animate);
 	}
