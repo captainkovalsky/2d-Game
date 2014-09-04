@@ -1,9 +1,24 @@
 var Game = (function(window, undefined){
-	var stage, renderer, interactivity = true;
+	var stage, renderer, interactivity = true, sprites = [];
+		function getRandomInt(min, max){
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
 
 		function animate(){
 			requestAnimFrame(animate);
 			renderer.render(stage);	
+		}
+
+		function hasCollision(spriteToCheck){
+			return false;
+			var i = 0,
+				hasCollision =  false,
+				countSprites = sprites.length,
+				currentSprite;
+			for( ;i < countSprites; i++){
+				currentSprite = sprites[i];
+
+			}
 		}
 
 		function createSprite(imagePath){
@@ -17,18 +32,47 @@ var Game = (function(window, undefined){
 		replaceRendererElement.appendChild(renderer.view);
 	}	
 
-	var start = function(){
-		var poutinSprite = createSprite("resources/poutin.jpg");
-		poutinSprite.anchor.x = 0.5;
-		poutinSprite.anchor.y = 0.5;
-		poutinSprite.position.x = GameConfig.WIDTH / 2;
-		poutinSprite.position.y = GameConfig.HEIGHT / 2;
-		poutinSprite.setInteractive(interactivity);
-		poutinSprite.click = function(mouseData){
+	var createPutinSprite = function(){
+		var putinSprite = createSprite("resources/poutin.jpg"),
+			putinHeight = putinSprite.height,
+			putinWidth = putinSprite.width,
+			x = getRandomInt(putinWidth, GameConfig.WIDTH - putinWidth),
+			y = getRandomInt(putinHeight, GameConfig.HEIGHT - putinHeight);
+		putinSprite.anchor.x = 0.5;
+		putinSprite.anchor.y = 0.5;
+		putinSprite.position.x = x;
+		putinSprite.position.y = y;
+		putinSprite.setInteractive(interactivity);
+		putinSprite.click = function(mouseData){
 			console.log('add wound sprite');
 		}
+		return putinSprite;
+	}
 
-		stage.addChild(poutinSprite);
+	var changePosition = function(toChangePositionSprite){
+			var spriteHeight = toChangePositionSprite.height,
+				spriteWidth = toChangePositionSprite.width,
+				x = getRandomInt(spriteWidth, GameConfig.WIDTH - spriteWidth),
+				y = getRandomInt(spriteHeight, GameConfig.HEIGHT - spriteHeight);
+				toChangePositionSprite.position.x = x;
+				toChangePositionSprite.position.y = y;
+			return void(0);
+	}
+
+	var start = function(){
+		var putinCount = 10,
+			currentPutin;
+
+		while(putinCount > 0){
+			toAddPutin = createPutinSprite();
+			while(hasCollision(toAddPutin)){
+				changePisition(toAddPutin);
+			}
+			putinCount = putinCount - 1;
+		sprites.push(toAddPutin);
+		stage.addChild(toAddPutin);
+		}
+	
 		requestAnimFrame(animate);
 	}
 
