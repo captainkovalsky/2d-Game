@@ -1,5 +1,9 @@
 var Game = (function(window, undefined){
-	var stage, renderer, interactivity = true, sprites = [];
+	var stage,
+		renderer,
+		interactivity = true,
+		sprites = [];
+		
 		function getRandomInt(min, max){
 		  return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
@@ -9,22 +13,29 @@ var Game = (function(window, undefined){
 			renderer.render(stage);	
 		}
 
-		function hasCollision(spriteToCheck){
-			return false;
+		function hasCollision(toCheckSprite){
 			var i = 0,
 				hasCollision =  false,
 				countSprites = sprites.length,
 				currentSprite;
+
+				if(sprites.length === 0){
+					return false;
+				}
+
 			for( ;i < countSprites; i++){
 				currentSprite = sprites[i];
-
+				console.log('current sprite: ', currentSprite);
+				console.log('to check sprite: ', toCheckSprite);
 			}
+			return false;
 		}
 
-		function createSprite(imagePath){
-			var texture = PIXI.Texture.fromImage(imagePath, true);
-			return new PIXI.Sprite(texture);
-		}
+	function createSprite(imagePath){
+		var texture = PIXI.Texture.fromImage(imagePath, true);
+		return new PIXI.Sprite(texture);
+	}
+
 	var init = function(){
 		stage = new PIXI.Stage(GameConfig.BACKGROUND_COLOR, interactivity);
 		renderer = PIXI.autoDetectRenderer(GameConfig.WIDTH, GameConfig.HEIGHT);
@@ -38,11 +49,11 @@ var Game = (function(window, undefined){
 			putinWidth = putinSprite.width,
 			x = getRandomInt(putinWidth, GameConfig.WIDTH - putinWidth),
 			y = getRandomInt(putinHeight, GameConfig.HEIGHT - putinHeight);
-		putinSprite.anchor.x = 0.5;
-		putinSprite.anchor.y = 0.5;
-		putinSprite.position.x = x;
-		putinSprite.position.y = y;
-		putinSprite.setInteractive(interactivity);
+			putinSprite.anchor.x = 0.5;
+			putinSprite.anchor.y = 0.5;
+			putinSprite.position.x = x;
+			putinSprite.position.y = y;
+			putinSprite.setInteractive(interactivity);
 		putinSprite.click = function(mouseData){
 			console.log('add wound sprite');
 		}
@@ -60,7 +71,7 @@ var Game = (function(window, undefined){
 	}
 
 	var start = function(){
-		var putinCount = 10,
+		var putinCount = 15,
 			currentPutin;
 
 		while(putinCount > 0){
